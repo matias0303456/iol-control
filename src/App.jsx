@@ -3,17 +3,24 @@ import './App.css'
 import UserContext from './contexts/userContext'
 import { LoginForm } from './components/LoginForm'
 import { MyCalendar } from './components/MyCalendar'
+import FilterContext from './contexts/FilterContext'
 
 function App() {
 
   const [token, setToken] = useState(localStorage.getItem('token'))
+  const [filtered, setFiltered] = useState('')
 
   return (
-    <div className="App">
-      <UserContext.Provider value={{ token, setToken }}>
-        {token === null ? <LoginForm /> : <MyCalendar />}
-      </UserContext.Provider>
-    </div>
+    <UserContext.Provider value={{ token, setToken }}>
+      <FilterContext.Provider value={{ filtered, setFiltered }}>
+        {token === null ?
+          <div className='loginContainer'>
+            <LoginForm />
+          </div> :
+          <MyCalendar />
+        }
+      </FilterContext.Provider>
+    </UserContext.Provider>
   )
 }
 

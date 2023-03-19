@@ -2,14 +2,18 @@ import { useContext, useEffect, useState } from "react"
 import { ResponsiveCalendar } from "@nivo/calendar"
 import { useData } from "../hooks/useData"
 import UserContext from "../contexts/userContext"
+import { Info } from "./Info"
+import FilterContext from "../contexts/FilterContext"
 
 export function MyCalendar() {
 
     const { token } = useContext(UserContext)
+    const { filtered } = useContext(FilterContext)
     const { data: { portfolio, operations }, getData } = useData()
 
     const [date, setDate] = useState([])
     const [calendarData, setCalendarData] = useState([])
+    const [fromDate, setDateFrom] = useState("2021-01-01")
 
     useEffect(() => {
         const currentDate = new Date();
@@ -18,6 +22,7 @@ export function MyCalendar() {
         const day = String(currentDate.getDate()).padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
         setDate(formattedDate)
+        getData(token)
     }, [])
 
     useEffect(() => {
@@ -58,30 +63,40 @@ export function MyCalendar() {
     }
 
     return (
-        <ResponsiveCalendar
-            data={calendarData}
-            tooltip={customTooltip}
-            from="2021-01-01"
-            to={date}
-            emptyColor="#eeeeee"
-            colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
-            margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-            yearSpacing={40}
-            monthBorderColor="#ffffff"
-            dayBorderWidth={2}
-            dayBorderColor="#ffffff"
-            legends={[
-                {
-                    anchor: 'bottom-right',
-                    direction: 'row',
-                    translateY: 36,
-                    itemCount: 4,
-                    itemWidth: 42,
-                    itemHeight: 36,
-                    itemsSpacing: 14,
-                    itemDirection: 'right-to-left'
-                }
-            ]}
-        />
+        <div className="container">
+            <div className="calendar">
+                <ResponsiveCalendar
+                    data={filtered.length === 0 ? calendarData : calendarData.filter(item => item.simbolo === filtered)}
+                    tooltip={customTooltip}
+                    from={fromDate}
+                    to={date}
+                    emptyColor="#eeeeee"
+                    colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
+                    margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+                    yearSpacing={40}
+                    monthBorderColor="#fff"
+                    monthSpacing={15}
+                    dayBorderWidth={2}
+                    dayBorderColor="#ffffff"
+                    legends={[
+                        {
+                            anchor: 'bottom-right',
+                            direction: 'row',
+                            translateY: 36,
+                            itemCount: 4,
+                            itemWidth: 42,
+                            itemHeight: 36,
+                            itemsSpacing: 14,
+                            itemDirection: 'right-to-left'
+                        }
+                    ]}
+                />
+            </div>
+            <Info
+                portfolio={portfolio}
+                operations={operations}
+                setDateFrom={setDateFrom}
+            />
+        </div>
     )
 }

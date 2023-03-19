@@ -2,6 +2,8 @@ import { useState } from "react";
 
 export function useData() {
 
+    const API = import.meta.env.VITE_APP_API
+
     const [data, setData] = useState({
         portfolio: [],
         operations: []
