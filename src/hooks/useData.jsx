@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { handleRefresh } from "../utils/handleRefresh";
+import { API } from "../utils/config";
 
 export function useData() {
-
-    const API = import.meta.env.VITE_APP_API
 
     const [data, setData] = useState({
         portfolio: [],

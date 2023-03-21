@@ -13,8 +13,17 @@ export function Info({ portfolio, operations, setDateFrom }) {
 
     return (
         <div className="info">
-            <button type="button" onClick={() => handleRefresh()}>Salir</button>
-            <div>
+            <div className="controls">
+                <button
+                    id="logout-btn"
+                    type="button"
+                    className="btn"
+                    onClick={() => handleRefresh()}
+                >
+                    Salir
+                </button>
+            </div>
+            <div className="controls">
                 <label>Ticker</label>
                 <select onChange={(e) => setFiltered(e.target.value)}>
                     <option value="">Seleccione</option>
@@ -23,25 +32,25 @@ export function Info({ portfolio, operations, setDateFrom }) {
                     })}
                 </select>
             </div>
-            <div>
+            <div className="controls">
                 <label>Graficar desde</label>
                 <input type="date" onChange={e => setDateFrom(e.target.value)} />
             </div>
-            <div>
+            <div className="controls">
                 <label>Ingrese inflación mensual estimada</label>
-                <input type="number" step="0.01" onChange={e => setInflation(e.target.value)} />
+                <input type="number" step="0.01" onChange={e => setInflation(e.target.value)} /> %
             </div>
             <table>
                 <thead>
                     <tr>
                         <th>Tipo</th>
                         <th>Símbolo</th>
-                        <th>Cantidad</th>
+                        <th>Cant.</th>
                         <th>PPC</th>
-                        <th>Ult. precio</th>
-                        <th>Rend. %</th>
+                        <th>Últ. precio</th>
+                        <th>Rend.</th>
                         <th>TPC</th>
-                        <th>Rend. real %</th>
+                        <th>Rend. real</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,14 +62,14 @@ export function Info({ portfolio, operations, setDateFrom }) {
                         const tpc = getTPC(operations.filter(op => op.simbolo === p.titulo.simbolo))
                         return (
                             <tr>
-                                <td>{p.titulo.tipo}</td>
+                                <td>{p.titulo.tipo.slice(0, 3)}</td>
                                 <td>{p.titulo.simbolo}</td>
                                 <td>{p.cantidad}</td>
-                                <td>{p.ppc}</td>
-                                <td>{p.ultimoPrecio}</td>
-                                <td>{p.gananciaPorcentaje}</td>
+                                <td>$ {p.ppc}</td>
+                                <td>$ {p.ultimoPrecio}</td>
+                                <td>{p.gananciaPorcentaje} %</td>
                                 <td>{tpc}</td>
-                                <td>{getRealProfit(tpc, p.gananciaPorcentaje, inflation)}</td>
+                                <td>{getRealProfit(tpc, p.gananciaPorcentaje, inflation)} %</td>
                             </tr>
                         )
                     })}

@@ -1,10 +1,9 @@
 import { useContext } from "react"
 import { toast } from "react-toastify"
 import UserContext from "../contexts/UserContext"
+import { API } from "../utils/config"
 
 export function useUser() {
-
-    const API = import.meta.env.VITE_APP_API
 
     const { token, setToken } = useContext(UserContext)
 

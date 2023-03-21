@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Swiss';
+  src: url('./assets/fonts/swz721lc.ttf') format('truetype');
+}
+
+body {
+  font-family: 'Swiss', sans-serif;
+}
+
 .loginContainer {
   display: flex;
   align-items: center;
@@ -32,10 +41,13 @@
   padding: 5px;
 }
 
-.loginForm input[type="submit"] {
+.loginForm input[type="submit"],
+.btn {
   margin-top: 15px;
   width: 20%;
   padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .container {
@@ -85,6 +97,34 @@
   width: 100%;
   padding: 5px;
   border-radius: 5px;
+}
+
+.controls {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.controls:nth-child(1) {
+  justify-content: end;
+  margin-top: 0;
+}
+
+.controls input,
+.controls select {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.info table {
+  text-align: center;
+  width: 100%;
+}
+
+.info table th {
+  border-bottom: 1px solid #000;
 }
 
 @media (max-width:1200px) {
