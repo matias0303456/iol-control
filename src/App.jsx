@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import './App.css'
-import UserContext from './contexts/userContext'
+import UserContext from './contexts/UserContext'
 import { LoginForm } from './components/LoginForm'
 import { MyCalendar } from './components/MyCalendar'
 import FilterContext from './contexts/FilterContext'

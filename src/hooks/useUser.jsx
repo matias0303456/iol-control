@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { toast } from "react-toastify"
-import UserContext from "../contexts/userContext"
+import UserContext from "../contexts/UserContext"
 
 export function useUser() {
 

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { ResponsiveCalendar } from "@nivo/calendar"
 import { useData } from "../hooks/useData"
-import UserContext from "../contexts/userContext"
+import UserContext from "../contexts/UserContext"
 import { Info } from "./Info"
 import FilterContext from "../contexts/FilterContext"
 
