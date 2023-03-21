@@ -40,23 +40,22 @@ export function MyCalendar() {
     }, [portfolio, operations])
 
     const customTooltip = ({ day }) => {
+        const show = filtered.length === 0 ? calendarData : calendarData.filter(item => item.simbolo === filtered)
         return (
             <div className='tooltip'>
                 <h3>{day}</h3>
                 <ul>
-                    {calendarData
-                        .filter(item => item.day === day)
-                        .map((cd, idx) => {
-                            return (
-                                <li key={idx}>
-                                    <h4>{cd.simbolo}</h4>
-                                    <p>Monto: {cd.value}</p>
-                                    <p>Cantidad: {cd.cantidad}</p>
-                                    <p>Precio: {cd.precio}</p>
-                                    <p>Tipo: {cd.tipo}</p>
-                                </li>
-                            )
-                        })}
+                    {show.filter(item => item.day === day).map((cd, idx) => {
+                        return (
+                            <li key={idx}>
+                                <h4>{cd.simbolo}</h4>
+                                <p>Monto: {cd.value}</p>
+                                <p>Cantidad: {cd.cantidad}</p>
+                                <p>Precio: {cd.precio}</p>
+                                <p>Tipo: {cd.tipo}</p>
+                            </li>
+                        )
+                    })}
                 </ul>
             </div>
         )
