@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Swiss';
-  src: url('./assets/fonts/swz721lc.ttf') format('truetype');
+  src: url('./assets/fonts/swz721lc.ttf');
 }
 
 body {
