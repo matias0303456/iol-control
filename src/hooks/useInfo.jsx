@@ -25,7 +25,7 @@ export function useInfo() {
 
         const days = milliseconds / (1000 * 60 * 60 * 24)
         const result = days / accCompra
-        return `${parseInt(result)} días`
+        return `${parseInt(result)} d`
 
     }
 

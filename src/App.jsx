@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 import './App.css'
 import UserContext from './contexts/userContext'
 import { LoginForm } from './components/LoginForm'
 import { MyCalendar } from './components/MyCalendar'
 import FilterContext from './contexts/FilterContext'
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
           </div> :
           <MyCalendar />
         }
+        <ToastContainer position='bottom-left' />
       </FilterContext.Provider>
     </UserContext.Provider>
   )

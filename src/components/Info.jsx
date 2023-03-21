@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import FilterContext from "../contexts/FilterContext"
 import { useInfo } from "../hooks/useInfo"
+import { handleRefresh } from "../utils/handleRefresh"
 
 export function Info({ portfolio, operations, setDateFrom }) {
 
@@ -12,6 +13,7 @@ export function Info({ portfolio, operations, setDateFrom }) {
 
     return (
         <div className="info">
+            <button type="button" onClick={() => handleRefresh()}>Salir</button>
             <div>
                 <label>Ticker</label>
                 <select onChange={(e) => setFiltered(e.target.value)}>

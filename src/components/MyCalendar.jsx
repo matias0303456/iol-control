@@ -62,6 +62,8 @@ export function MyCalendar() {
         )
     }
 
+    if (portfolio.length === 0 || operations.length === 0) return <strong>Cargando datos...</strong>
+
     return (
         <div className="container">
             <div className="calendar">

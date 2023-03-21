@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { handleRefresh } from "../utils/handleRefresh";
 
 export function useData() {
 
@@ -40,6 +42,10 @@ export function useData() {
                     portfolio: res[0],
                     operations: res[1]
                 })
+            })
+            .catch(err => {
+                toast.error('Sesión expirada.')
+                handleRefresh()
             })
     }
 

@@ -1,30 +1,30 @@
-import { useState } from "react"
+import { useForm } from 'react-hook-form'
 import { useUser } from "../hooks/useUser"
 
 export function LoginForm() {
 
     const { login } = useUser()
 
-    const [user, setUser] = useState({})
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleChange = e => {
-        setUser({
-            ...user,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        login(user)
+    const onSubmit = data => {
+        login(data)
     }
 
     return (
-        <form className="loginForm" onChange={handleChange} onSubmit={handleSubmit}>
+        <form className="loginForm" onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="username">Usuario (email)</label>
-            <input type="email" name="username" />
+            <input type="email" {...register("username", {
+                required: true
+            })}
+            />
+            {errors.username && <small>* Este campo es requerido.</small>}
             <label htmlFor="password">Contraseña</label>
-            <input type="password" name="password" />
+            <input type="password" {...register("password", {
+                required: true
+            })}
+            />
+            {errors.password && <small>* Este campo es requerido.</small>}
             <input type="submit" value="Enviar" />
         </form>
     )

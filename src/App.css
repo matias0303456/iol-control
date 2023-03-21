@@ -40,12 +40,15 @@
 
 .container {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .calendar {
   height: 100vh;
-  width: 60%;
+  width: 58%;
   background-color: rgb(0, 140, 140);
+  border-radius: 10px 0 0 10px;
 }
 
 .tooltip {
@@ -72,13 +75,23 @@
 }
 
 .info {
-  padding: 20px;
+  padding: 10px;
   width: 40%;
   background-color: rgb(236, 198, 127);
+  border-radius: 0 10px 10px 0;
 }
 
 .info select {
   width: 100%;
   padding: 5px;
   border-radius: 5px;
+}
+
+@media (max-width:1200px) {
+
+  .calendar,
+  .info {
+    width: 100%;
+  }
+
 }
