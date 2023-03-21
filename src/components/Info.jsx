@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import FilterContext from "../contexts/FilterContext"
 import { useInfo } from "../hooks/useInfo"
 
@@ -6,20 +6,28 @@ export function Info({ portfolio, operations, setDateFrom }) {
 
     const { setFiltered } = useContext(FilterContext)
 
-    const {getTPC} = useInfo()
+    const { getTPC, getRealProfit } = useInfo()
+
+    const [inflation, setInflation] = useState(0)
 
     return (
         <div className="info">
-            <label>Ticker</label>
-            <select onChange={(e) => setFiltered(e.target.value)}>
-                <option value="">Seleccione</option>
-                {portfolio.map((p, idx) => {
-                    return <option key={idx} value={p.titulo.simbolo}>{p.titulo.simbolo}</option>
-                })}
-            </select>
+            <div>
+                <label>Ticker</label>
+                <select onChange={(e) => setFiltered(e.target.value)}>
+                    <option value="">Seleccione</option>
+                    {portfolio.map((p, idx) => {
+                        return <option key={idx} value={p.titulo.simbolo}>{p.titulo.simbolo}</option>
+                    })}
+                </select>
+            </div>
             <div>
                 <label>Graficar desde</label>
                 <input type="date" onChange={e => setDateFrom(e.target.value)} />
+            </div>
+            <div>
+                <label>Ingrese inflación mensual estimada</label>
+                <input type="number" step="0.01" onChange={e => setInflation(e.target.value)} />
             </div>
             <table>
                 <thead>
@@ -40,6 +48,7 @@ export function Info({ portfolio, operations, setDateFrom }) {
                         if (a.titulo.tipo < b.titulo.tipo) return -1
                         return 0
                     }).map(p => {
+                        const tpc = getTPC(operations.filter(op => op.simbolo === p.titulo.simbolo))
                         return (
                             <tr>
                                 <td>{p.titulo.tipo}</td>
@@ -48,8 +57,8 @@ export function Info({ portfolio, operations, setDateFrom }) {
                                 <td>{p.ppc}</td>
                                 <td>{p.ultimoPrecio}</td>
                                 <td>{p.gananciaPorcentaje}</td>
-                                <td>{getTPC(operations.filter(op => op.simbolo === p.titulo.simbolo))}</td>
-                                <td></td>
+                                <td>{tpc}</td>
+                                <td>{getRealProfit(tpc, p.gananciaPorcentaje, inflation)}</td>
                             </tr>
                         )
                     })}

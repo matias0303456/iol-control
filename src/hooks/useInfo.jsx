@@ -1,6 +1,6 @@
 export function useInfo() {
 
-    const getTPC = (operations) => {
+    const getTPC = operations => {
 
         const currentDate = new Date();
 
@@ -9,7 +9,7 @@ export function useInfo() {
 
         const milliseconds = operations.reverse().reduce((acc, curr) => {
             const pastDate = new Date(curr.fechaOperada);
-            
+
             const differenceInMilliseconds = currentDate.getTime() - pastDate.getTime();
             if (curr.tipo === 'Compra') accCompra = accCompra + curr.cantidadOperada
             if (curr.tipo === 'Venta') accVenta = accVenta + curr.cantidadOperada
@@ -22,13 +22,18 @@ export function useInfo() {
             return acc
         }, 0)
 
-        
+
         const days = milliseconds / (1000 * 60 * 60 * 24)
         const result = days / accCompra
         return `${parseInt(result)} días`
 
     }
 
-    return { getTPC }
+    const getRealProfit = (tpc, gananciaPorcentaje, inflation) => {
+        return (gananciaPorcentaje - (parseInt(tpc.split(' ')[0]) * inflation / 30)).toFixed(2)
+    }
+
+
+    return { getTPC, getRealProfit }
 
 }
